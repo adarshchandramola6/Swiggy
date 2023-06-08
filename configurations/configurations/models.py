@@ -41,16 +41,29 @@ class MyUser(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    # first_name = models.CharField( max_length=21,null=True,blank=True)
-    # last_name = models.CharField(max_length=21,null=True,blank=True)
+    first_name = models.CharField( max_length=21,null=True,blank=True)
+    last_name = models.CharField(max_length=21,null=True,blank=True)
     date_of_birth = models.DateField(null=True,blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    mobile = models.IntegerField(null=True,blank=True)
+    OTP = models.IntegerField(max_length=6,null=True,blank=True)
+    OTP_verify = models.BooleanField(default=False)
+    OTP_expire = models.DateField(null=True,blank=True)
+    user_types= models.ChoiceField(
+    ("1", "One"),
+    ("2", "Two"),
+    ("3", "Three"),
+    ("4", "Four"),
+    ("5", "Five"),
+)
+
 
     objects = MyUserManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["email"]
+    CHOICE_FIELD = "users"
 
     def __str__(self):
         return self.email
